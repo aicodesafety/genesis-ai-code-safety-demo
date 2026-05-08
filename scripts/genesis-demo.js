@@ -55,11 +55,12 @@ if (content.includes('module.exports = null')) {
   console.log('[GENESIS] Risk level: ELEVATED');
 } else {
   console.log('Decision : ALLOW');
-  console.log('Reason   : No high-risk patterns detected.');
-  console.log('Action   : Change cleared for execution.\n');
+  console.log('Reason   : No known public-demo risk patterns detected.');
+  console.log('Action   : Cleared by the limited public demo rules.\n');
   console.log('--- DEMO OUTPUT ---');
-  console.log('[GENESIS] ALLOW — Change passed safety check.');
+  console.log('[GENESIS] ALLOW — No known public-demo risk patterns matched.');
   console.log('[GENESIS] Risk level: LOW');
+  console.log('[GENESIS] Note: The public demo checks simple visible patterns only. The private core handles broader classification.');
 }
 
 console.log('\n========================================');

@@ -827,12 +827,12 @@
       stateClass = 'allow';
       riskClass  = 'risk-low';
       riskText   = 'LOW';
-      reason     = 'No high-risk public demo patterns detected.';
-      action     = 'Change cleared for execution.';
+      reason     = 'No known public-demo risk patterns matched.';
+      action     = 'Public demo checks simple visible patterns only — the private core handles broader classification.';
     }
 
     const TITLES = {
-      ALLOW:            'Change passed safety check',
+      ALLOW:            'No known demo patterns matched',
       BLOCK:            'Change blocked before execution',
       REQUIRE_APPROVAL: 'Human sign-off required before execution'
     };
