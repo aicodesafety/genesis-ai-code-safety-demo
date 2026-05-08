@@ -14,12 +14,13 @@ Input : Safe helper addition
 File  : demo-safe.json
 
 Decision : ALLOW
-Reason   : No high-risk patterns detected.
-Action   : Change cleared for execution.
+Reason   : No known public-demo risk patterns detected.
+Action   : Cleared by the limited public demo rules.
 
 --- DEMO OUTPUT ---
-[GENESIS] ALLOW — Change passed safety check.
+[GENESIS] ALLOW — No known public-demo risk patterns matched.
 [GENESIS] Risk level: LOW
+[GENESIS] Note: The public demo checks simple visible patterns only. The private core handles broader classification.
 
 ========================================
   NOTE: This is a public demo shell.

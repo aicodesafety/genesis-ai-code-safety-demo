@@ -4,6 +4,7 @@
   "description": "Public demo of a pre-execution safety gate for AI-generated code changes.",
   "main": "scripts/genesis-demo.js",
   "scripts": {
+    "test": "node scripts/test-demo.js",
     "demo": "node scripts/genesis-demo.js examples/demo-danger.json",
     "demo:safe": "node scripts/genesis-demo.js examples/demo-safe.json",
     "demo:danger": "node scripts/genesis-demo.js examples/demo-danger.json",

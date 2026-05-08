@@ -100,7 +100,7 @@ The HTML demo must not contain:
 - OPENAI_API_KEY
 - ANTHROPIC_API_KEY
 - process.env
-- yaron180986-create/genesis.git
+- private repo URLs
 - genesis-core-private
 
 ## Approval
