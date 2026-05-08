@@ -633,13 +633,14 @@
       <p class="comparison-label">With GENESIS</p>
       <p class="comparison-body">
         AI-generated changes pass through a pre-execution gate. Every change produces a decision:
-        ALLOW, REQUIRE_APPROVAL, or BLOCK. Every decision carries a reason. Every approval is tracked.
+        ALLOW, REQUIRE_APPROVAL, or BLOCK. Every decision carries a reason. In the private core, approvals are tracked with structured evidence.
       </p>
     </div>
   </div>
 
   <!-- Demo framing -->
   <p class="demo-framing">Try the demo</p>
+  <p class="cta-note">Two-minute check: try Safe Change, Dead-Code Gate, Export Nullification, then paste one snippet of your own and see whether the decision feels right.</p>
 
   <!-- Scenario selector -->
   <div class="scenarios">
@@ -714,7 +715,7 @@
     <div class="decision-grid">
       <div class="decision-card">
         <p class="decision-card-label allow">ALLOW</p>
-        <p class="decision-card-text">The change appears safe. It is cleared to proceed in this public simulation.</p>
+        <p class="decision-card-text">No known public-demo risk pattern was detected. Cleared only by the limited demo rules.</p>
       </div>
       <div class="decision-card">
         <p class="decision-card-label review">REQUIRE_APPROVAL</p>
