@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PROVE BY GENESIS — Bugbot PR Proof Demo</title>
+  <meta name="description" content="Bugbot verifies whether an AI-generated PR can be trusted — proof, learning, insight, and a contract-validated outcome." />
+  <meta property="og:title" content="PROVE BY GENESIS — Bugbot PR Proof Demo" />
+  <meta property="og:description" content="Verify AI-generated PRs with proof, not trust." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aicodesafety.com/bugbot-demo" />
+  <meta property="og:image" content="https://aicodesafety.com/assets/social-card.svg" />
+  <meta property="og:image:type" content="image/svg+xml" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://aicodesafety.com/assets/social-card.svg" />
+  <link rel="icon" type="image/svg+xml" href="assets/brand/favicon.svg" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #070b14;
+      --surface:      #0c1020;
+      --surface-2:    #101624;
+      --border:       #1a2236;
+      --border-hover: #28344f;
+      --text-1:       #dde4f0;
+      --text-2:       #6b7a96;
+      --text-3:       #3d4a63;
+      --accent:       #4a7fe0;
+      --accent-dim:   rgba(74, 127, 224, 0.12);
+      --allow-border: #2a5c3c;
+      --allow-bg:     rgba(42, 92, 60, 0.07);
+      --allow-label:  #4ade80;
+      --allow-badge:  #166534;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-1);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      padding: 3rem 1.25rem 4rem;
+      line-height: 1.6;
+    }
+
+    .container { max-width: 680px; margin: 0 auto; }
+
+    /* ── Header ── */
+    .header { text-align: center; margin-bottom: 2.75rem; }
+    .header .eyebrow {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1.1rem;
+    }
+    .header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.15rem); font-weight: 700;
+      color: #eef2fc; letter-spacing: -0.02em; margin-bottom: 0.5rem; line-height: 1.2;
+    }
+    .header .category-statement {
+      font-size: 1rem; font-weight: 600; color: var(--accent);
+      letter-spacing: -0.01em; margin-bottom: 0.85rem;
+    }
+    .header .slogan {
+      font-size: 1.05rem; font-weight: 500; color: var(--text-1); margin-bottom: 0.6rem;
+    }
+    .header .sub {
+      font-size: 0.875rem; color: var(--text-2);
+      max-width: 520px; margin: 0 auto 0.9rem; line-height: 1.65;
+    }
+    .header .trust-line { font-size: 0.8rem; color: var(--text-3); letter-spacing: 0.04em; }
+
+    /* ── Notice ── */
+    .notice {
+      background: var(--surface); border: 1px solid var(--border);
+      border-left: 2px solid var(--accent); border-radius: 6px;
+      padding: 0.7rem 1rem; font-size: 0.8rem; color: var(--text-2);
+      text-align: center; margin-bottom: 2.25rem;
+    }
+
+    /* ── Shared section labels ── */
+    .section-eyebrow {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-size: 1rem; font-weight: 700; color: #eef2fc;
+      letter-spacing: -0.01em; margin-bottom: 0.55rem;
+    }
+    .section-body {
+      font-size: 0.875rem; color: var(--text-2); margin-bottom: 0.85rem; line-height: 1.6;
+    }
+
+    /* ── Demo framing label ── */
+    .demo-framing {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--text-3); margin-bottom: 0.75rem;
+    }
+
+    /* ── Card wrapper ── */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.25rem; margin-bottom: 1.75rem;
+    }
+
+    /* ── Brand lockup ── */
+    .brand-lockup {
+      display: flex; align-items: center; justify-content: center;
+      gap: 13px; margin-bottom: 1.5rem;
+    }
+    .brand-mark { width: 38px; height: 38px; flex-shrink: 0; }
+    .brand-text { text-align: left; line-height: 1; }
+    .brand-qualifier {
+      display: block; font-size: 0.6rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.2rem;
+    }
+    .brand-name {
+      display: block; font-size: 1.15rem; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase; color: #eef2fc; line-height: 1;
+    }
+
+    /* ── Flow ── */
+    .how-title {
+      font-size: 0.7rem; text-transform: uppercase;
+      letter-spacing: 0.14em; color: var(--text-3); margin-bottom: 0.65rem;
+    }
+    .how-flow {
+      display: flex; align-items: center; gap: 0.5rem;
+      flex-wrap: wrap; font-size: 0.82rem; color: var(--text-2); margin-bottom: 0.7rem;
+    }
+    .how-step {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 5px; padding: 0.3rem 0.65rem; color: var(--text-1); font-size: 0.8rem;
+    }
+    .how-arrow { color: var(--text-3); font-size: 0.75rem; }
+    .how-note { font-size: 0.76rem; color: var(--text-3); line-height: 1.55; }
+
+    /* ── Outcome card ── */
+    .outcome-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden; margin-bottom: 1.75rem;
+    }
+    .outcome-top {
+      padding: 1rem 1.25rem 0.85rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.75rem;
+      background: var(--allow-bg); border-bottom-color: var(--allow-border);
+    }
+    .verdict-badge {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 0.22rem 0.55rem; border-radius: 4px; flex-shrink: 0;
+    }
+    .verdict-badge.allow { background: var(--allow-badge); color: #bbf7d0; }
+    .verdict-title { font-size: 0.92rem; font-weight: 600; color: var(--text-1); }
+    .outcome-body { padding: 0.9rem 1.25rem; }
+    .result-row {
+      display: flex; gap: 1rem; font-size: 0.845rem; margin-bottom: 0.5rem; line-height: 1.5;
+    }
+    .result-row:last-child { margin-bottom: 0; }
+    .row-key {
+      color: var(--text-3); min-width: 88px; flex-shrink: 0;
+      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; padding-top: 0.1rem;
+    }
+    .row-val { color: var(--text-2); }
+    .row-val.pass { color: var(--allow-label); font-weight: 600; }
+    .row-val.mono {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.8rem;
+    }
+
+    /* ── Proof chain ── */
+    .proof-chain { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .proof-step {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 7px; padding: 0.65rem 1rem;
+      display: flex; align-items: flex-start; gap: 0.85rem; font-size: 0.845rem;
+    }
+    .proof-step-num {
+      font-family: "SFMono-Regular", Consolas, monospace; font-size: 0.72rem;
+      font-weight: 700; color: var(--accent); min-width: 1.6rem; flex-shrink: 0; padding-top: 0.1rem;
+    }
+    .proof-step-name {
+      font-weight: 600; color: var(--text-1); min-width: 68px; flex-shrink: 0;
+    }
+    .proof-step-detail { color: var(--text-2); flex: 1; line-height: 1.45; font-size: 0.83rem; }
+    .proof-step-status {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.2rem 0.5rem; border-radius: 3px; flex-shrink: 0;
+      background: var(--allow-badge); color: #bbf7d0;
+    }
+    .proof-step-detail code {
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.78rem; color: var(--accent);
+    }
+
+    /* ── JSON tabs ── */
+    .json-tabs {
+      display: flex; margin-bottom: 0; border-bottom: 1px solid var(--border);
+    }
+    .json-tab {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.78rem; padding: 0.55rem 1rem; background: transparent;
+      color: var(--text-3); border: none; border-bottom: 2px solid transparent;
+      cursor: pointer; transition: color 0.18s, border-color 0.18s; margin-bottom: -1px;
+    }
+    .json-tab:hover { color: var(--text-2); }
+    .json-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .json-panel {
+      display: none; background: var(--bg); border: 1px solid var(--border);
+      border-top: none; border-radius: 0 0 7px 7px; padding: 1rem;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.78rem; line-height: 1.65; overflow-x: auto;
+      white-space: pre; max-height: 440px; overflow-y: auto;
+    }
+    .json-panel.active { display: block; }
+    .jk { color: #7dd3fc; }
+    .js { color: #86efac; }
+    .jn { color: #fcd34d; }
+    .jb { color: #c084fc; }
+    .jx { color: var(--text-3); }
+
+    /* ── Contract summary grid ── */
+    .contract-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem;
+    }
+    @media (max-width: 400px) { .contract-grid { grid-template-columns: 1fr; } }
+    .contract-cell {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 7px; padding: 0.7rem 0.9rem;
+    }
+    .contract-cell-label {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-3); font-family: "SFMono-Regular", Consolas, monospace; margin-bottom: 0.3rem;
+    }
+    .contract-cell-value {
+      font-size: 0.875rem; font-weight: 700;
+      font-family: "SFMono-Regular", Consolas, monospace;
+    }
+    .contract-cell-value.pass { color: var(--allow-label); }
+    .contract-cell-value.info { color: var(--accent); }
+
+    /* ── Guarantees ── */
+    .guarantee-group { margin-bottom: 1rem; }
+    .guarantee-group:last-child { margin-bottom: 0; }
+    .guarantee-group-title {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-2);
+      margin-bottom: 0.5rem; padding-bottom: 0.35rem; border-bottom: 1px solid var(--border);
+    }
+    .guarantee-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+    .guarantee-item {
+      font-size: 0.835rem; color: var(--text-2);
+      display: flex; align-items: center; gap: 0.6rem; padding: 0.25rem 0;
+    }
+    .guarantee-item::before {
+      content: ''; display: inline-block; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--allow-label); flex-shrink: 0;
+    }
+
+    /* ── Limitations / boundary ── */
+    .boundary-honest {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 7px; padding: 0.85rem 1.1rem;
+      font-size: 0.79rem; color: var(--text-3); margin-bottom: 1.75rem; line-height: 1.6;
+    }
+    .boundary-honest strong {
+      display: block; color: var(--text-2); font-weight: 600;
+      margin-bottom: 0.45rem; font-size: 0.82rem;
+    }
+    .boundary-honest ul {
+      margin: 0.4rem 0 0 1.1rem; display: flex; flex-direction: column; gap: 0.25rem;
+    }
+
+    /* ── Feedback / nav ── */
+    .feedback-cta {
+      text-align: center; margin: 0 0 1.75rem; font-size: 0.82rem; color: var(--text-2);
+    }
+    .feedback-cta p { margin-bottom: 0.35rem; }
+    .feedback-cta a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .feedback-cta a:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    .footer { text-align: center; font-size: 0.76rem; color: var(--text-3); letter-spacing: 0.06em; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="brand-lockup">
+      <img src="assets/brand/prove-by-genesis-mark.svg" class="brand-mark" alt="" aria-hidden="true" />
+      <div class="brand-text">
+        <span class="brand-qualifier">Prove by</span>
+        <span class="brand-name">Genesis</span>
+      </div>
+    </div>
+    <p class="eyebrow">AI Code Safety Gate</p>
+    <h1>Bugbot PR Proof Demo</h1>
+    <p class="category-statement">Verify AI-generated PRs with proof, not trust.</p>
+    <p class="slogan">Bugbot does not just review AI-generated code. It proves whether the outcome can be trusted.</p>
+    <p class="sub">
+      Every pull request analysis produces a proof chain: read-only proof, a learning archive,
+      historical insight, a final outcome, and a contract-validated result. This page shows a
+      sample of that chain using sanitized demo data.
+    </p>
+    <p class="trust-line">Static sample data only — no live GitHub execution from this page.</p>
+  </header>
+
+  <!-- Notice -->
+  <div class="notice">
+    This is a static proof demo. All data shown is sanitized sample output.
+    No live PR analysis is performed from this page.
+  </div>
+
+  <!-- ── 1. Flow ── -->
+  <div class="card">
+    <p class="how-title">The proof chain</p>
+    <div class="how-flow">
+      <span class="how-step">PR</span>
+      <span class="how-arrow">&#8594;</span>
+      <span class="how-step">Proof</span>
+      <span class="how-arrow">&#8594;</span>
+      <span class="how-step">Learning</span>
+      <span class="how-arrow">&#8594;</span>
+      <span class="how-step">Insight</span>
+      <span class="how-arrow">&#8594;</span>
+      <span class="how-step">Outcome</span>
+      <span class="how-arrow">&#8594;</span>
+      <span class="how-step">Contract</span>
+    </div>
+    <p class="how-note">
+      Each step produces a machine-readable record.
+      The final outcome is validated against
+      <code style="font-family:'SFMono-Regular',Consolas,monospace;font-size:0.76rem;color:var(--accent)">bugbot.module.contract.v1</code>
+      before any downstream consumer can trust it.
+    </p>
+  </div>
+
+  <!-- ── 2. Final outcome card ── -->
+  <p class="demo-framing">Sample outcome</p>
+  <div class="outcome-card">
+    <div class="outcome-top">
+      <span class="verdict-badge allow">ACCEPTED</span>
+      <span class="verdict-title">Outcome verified — PR is safe to proceed</span>
+    </div>
+    <div class="outcome-body">
+      <div class="result-row">
+        <span class="row-key">PR</span>
+        <span class="row-val mono">example-org/example-repo #42</span>
+      </div>
+      <div class="result-row">
+        <span class="row-key">Runner</span>
+        <span class="row-val mono">bugbot-outcome-demo</span>
+      </div>
+      <div class="result-row">
+        <span class="row-key">Status</span>
+        <span class="row-val pass">ACCEPTED</span>
+      </div>
+      <div class="result-row">
+        <span class="row-key">Decision</span>
+        <span class="row-val pass">ACCEPTED</span>
+      </div>
+      <div class="result-row">
+        <span class="row-key">Trusted</span>
+        <span class="row-val pass">true</span>
+      </div>
+      <div class="result-row">
+        <span class="row-key">Summary</span>
+        <span class="row-val">No contamination detected. All safety checks passed.</span>
+      </div>
+      <div class="result-row">
+        <span class="row-key">Action</span>
+        <span class="row-val">Safe to proceed with human review.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3. Proof chain ── -->
+  <div class="card">
+    <p class="section-eyebrow">Proof chain</p>
+    <h2 class="section-title">Every step is verified</h2>
+    <ul class="proof-chain">
+      <li class="proof-step">
+        <span class="proof-step-num">01</span>
+        <span class="proof-step-name">Proof</span>
+        <span class="proof-step-detail">Read-only GitHub analysis — <code>writesDetected: false</code> · 4 files changed</span>
+        <span class="proof-step-status">PASS</span>
+      </li>
+      <li class="proof-step">
+        <span class="proof-step-num">02</span>
+        <span class="proof-step-name">Learning</span>
+        <span class="proof-step-detail">Archive written · 1 record stored · 5 historical records read</span>
+        <span class="proof-step-status">PASS</span>
+      </li>
+      <li class="proof-step">
+        <span class="proof-step-num">03</span>
+        <span class="proof-step-name">Insight</span>
+        <span class="proof-step-detail">Dominant decision: APPROVED · Dominant risk: INFO · No weak spots detected</span>
+        <span class="proof-step-status">PASS</span>
+      </li>
+      <li class="proof-step">
+        <span class="proof-step-num">04</span>
+        <span class="proof-step-name">Outcome</span>
+        <span class="proof-step-detail">Status: ACCEPTED · <code>trusted: true</code> · Proceed with human review</span>
+        <span class="proof-step-status">PASS</span>
+      </li>
+      <li class="proof-step">
+        <span class="proof-step-num">05</span>
+        <span class="proof-step-name">Contract</span>
+        <span class="proof-step-detail"><code>bugbot.module.contract.v1</code> · valid: true · errors: 0</span>
+        <span class="proof-step-status">PASS</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ── 4. Sample JSON preview ── -->
+  <div class="card">
+    <p class="section-eyebrow">Machine-readable output</p>
+    <h2 class="section-title">Sample JSON — the full payload</h2>
+    <p class="section-body">
+      The outcome and contract validation are both machine-readable JSON.
+      Downstream consumers read these directly — no parsing of human text required.
+    </p>
+    <div class="json-tabs">
+      <button class="json-tab active" onclick="switchTab(this,'panel-outcome')">outcome.json</button>
+      <button class="json-tab"        onclick="switchTab(this,'panel-contract')">contract-validation.json</button>
+    </div>
+    <pre class="json-panel active" id="panel-outcome"></pre>
+    <pre class="json-panel"        id="panel-contract"></pre>
+  </div>
+
+  <!-- ── 5. Contract validation summary ── -->
+  <div class="card">
+    <p class="section-eyebrow">Contract validation</p>
+    <h2 class="section-title">bugbot.module.contract.v1</h2>
+    <p class="section-body">
+      Every Bugbot outcome is validated against a machine-enforceable contract
+      before any downstream system can trust it.
+    </p>
+    <div class="contract-grid">
+      <div class="contract-cell">
+        <div class="contract-cell-label">Contract</div>
+        <div class="contract-cell-value info">bugbot.module.contract.v1</div>
+      </div>
+      <div class="contract-cell">
+        <div class="contract-cell-label">Version</div>
+        <div class="contract-cell-value info">1.0</div>
+      </div>
+      <div class="contract-cell">
+        <div class="contract-cell-label">Status</div>
+        <div class="contract-cell-value pass">ACCEPTED</div>
+      </div>
+      <div class="contract-cell">
+        <div class="contract-cell-label">Valid</div>
+        <div class="contract-cell-value pass">true</div>
+      </div>
+      <div class="contract-cell">
+        <div class="contract-cell-label">Errors</div>
+        <div class="contract-cell-value pass">0</div>
+      </div>
+      <div class="contract-cell">
+        <div class="contract-cell-label">Privacy safe</div>
+        <div class="contract-cell-value pass">true</div>
+      </div>
+      <div class="contract-cell">
+        <div class="contract-cell-label">GitHub write safe</div>
+        <div class="contract-cell-value pass">true</div>
+      </div>
+      <div class="contract-cell">
+        <div class="contract-cell-label">GENESIS core safe</div>
+        <div class="contract-cell-value pass">true</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 6. Privacy and safety guarantees ── -->
+  <div class="card">
+    <p class="section-eyebrow">Privacy &amp; safety</p>
+    <h2 class="section-title">Verifiable guarantees, not promises</h2>
+    <p class="section-body">
+      These flags are enforced by the contract validator — not asserted manually.
+      Any violation causes the outcome to be rejected as INCONCLUSIVE.
+    </p>
+    <div class="guarantee-group">
+      <p class="guarantee-group-title">Privacy</p>
+      <ul class="guarantee-list">
+        <li class="guarantee-item">Raw source code: never stored</li>
+        <li class="guarantee-item">Raw diff content: never stored</li>
+        <li class="guarantee-item">File contents: never stored</li>
+        <li class="guarantee-item">Sensitive values: never stored</li>
+        <li class="guarantee-item">Stores only metadata: YES</li>
+      </ul>
+    </div>
+    <div class="guarantee-group">
+      <p class="guarantee-group-title">GitHub safety</p>
+      <ul class="guarantee-list">
+        <li class="guarantee-item">GitHub read-only: YES</li>
+        <li class="guarantee-item">No GitHub writes performed: YES</li>
+        <li class="guarantee-item">No merge performed: YES</li>
+        <li class="guarantee-item">No PR created by Bugbot: YES</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── 7. Limitations ── -->
+  <div class="boundary-honest">
+    <strong>What this demo is not</strong>
+    <p>This page shows a static proof demo only. It does not execute live analysis.</p>
+    <ul>
+      <li>No live GitHub execution from this website</li>
+      <li>No automatic merge or PR comments</li>
+      <li>No status checks posted to GitHub</li>
+      <li>No live PR data — all data shown is fictional sample output</li>
+      <li>Bugbot is a prototype proof layer, not a production security engine</li>
+      <li>Running against a real PR requires a local Bugbot verifier environment</li>
+    </ul>
+  </div>
+
+  <!-- ── 8. CTA / nav ── -->
+  <div class="feedback-cta">
+    <p><a href="index.html">&#8592; Back to AI Code Safety Gate demo</a></p>
+    <p>Questions about the proof model?</p>
+    <a href="mailto:hello@aicodesafety.com?subject=Bugbot%20Proof%20Demo%20%E2%80%94%20Question">
+      Email hello@aicodesafety.com
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">Bugbot proof demo — static sample data only</footer>
+
+</div>
+<script>
+  /* ── Embedded sample data ── */
+  var OUTCOME = {
+    runner:      'bugbot-outcome-demo',
+    status:      'ACCEPTED',
+    decision:    'ACCEPTED',
+    prUrl:       'https://github.com/example-org/example-repo/pull/42',
+    archivePath: 'examples/bugbot-learning-archive-sample.jsonl',
+    outcome: {
+      trusted:               true,
+      summary:               'No contamination detected. All safety checks passed.',
+      recommendedNextAction: 'Safe to proceed with human review.'
+    },
+    proof: {
+      status:            'ACCEPTED',
+      bugbotDecision:    'APPROVED',
+      changedFilesCount: 4,
+      writesDetected:    false
+    },
+    learning: {
+      archiveWritten: true,
+      recordsWritten: 1,
+      recordsRead:    5,
+      validRecords:   5
+    },
+    insight: {
+      status:                'ACCEPTED',
+      dominantDecision:      'APPROVED',
+      dominantRisk:          'INFO',
+      topSurfaces:           ['src', 'docs'],
+      activeSignals:         [],
+      weakSpots:             [],
+      candidateRules:        [],
+      recommendedNextAction: 'Continue with standard review process.'
+    },
+    privacy: {
+      rawCodeStored:      false,
+      rawDiffStored:      false,
+      secretsStored:      false,
+      fileContentsStored: false,
+      storesOnlyMetadata: true
+    },
+    githubReadOnly:          true,
+    noGitHubWritesPerformed: true,
+    noMergePerformed:        true,
+    noPrCreated:             true,
+    limitations: [
+      'Local validation only.',
+      'No GENESIS integration performed.',
+      'Metadata only — no raw code, diff, or file contents stored.'
+    ]
+  };
+
+  var CONTRACT = {
+    runner:          'bugbot-contract-validator',
+    contract:        'bugbot.module.contract.v1',
+    contractVersion: '1.0',
+    status:          'ACCEPTED',
+    valid:           true,
+    errors:          [],
+    warnings:        [],
+    privacySafe:     true,
+    githubWriteSafe: true,
+    genesisCoreSafe: true
+  };
+
+  /* ── JSON syntax highlighter ── */
+  function highlight(obj) {
+    var str = JSON.stringify(obj, null, 2);
+    var out = '';
+    var i = 0;
+    while (i < str.length) {
+      var ch = str[i];
+      if (ch === '"') {
+        var j = i + 1;
+        while (j < str.length) {
+          if (str[j] === '\\') { j += 2; continue; }
+          if (str[j] === '"') { j++; break; }
+          j++;
+        }
+        var k = j;
+        while (k < str.length && (str[k] === ' ' || str[k] === '\t')) k++;
+        var isKey = str[k] === ':';
+        var raw = str.slice(i, j)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        out += '<span class="' + (isKey ? 'jk' : 'js') + '">' + raw + '</span>';
+        i = j;
+      } else if (ch === 't' && str.slice(i, i + 4) === 'true') {
+        out += '<span class="jb">true</span>'; i += 4;
+      } else if (ch === 'f' && str.slice(i, i + 5) === 'false') {
+        out += '<span class="jb">false</span>'; i += 5;
+      } else if (ch === 'n' && str.slice(i, i + 4) === 'null') {
+        out += '<span class="jx">null</span>'; i += 4;
+      } else if (ch === '-' || (ch >= '0' && ch <= '9')) {
+        var m = i;
+        while (m < str.length && /[-\d.eE+]/.test(str[m])) m++;
+        out += '<span class="jn">' + str.slice(i, m) + '</span>'; i = m;
+      } else {
+        if (ch === '&') out += '&amp;';
+        else if (ch === '<') out += '&lt;';
+        else if (ch === '>') out += '&gt;';
+        else out += ch;
+        i++;
+      }
+    }
+    return out;
+  }
+
+  /* ── Tab switching ── */
+  function switchTab(btn, targetId) {
+    document.querySelectorAll('.json-tab').forEach(function (t) { t.classList.remove('active'); });
+    document.querySelectorAll('.json-panel').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById(targetId).classList.add('active');
+  }
+
+  /* ── Render JSON panels on load ── */
+  document.getElementById('panel-outcome').innerHTML  = highlight(OUTCOME);
+  document.getElementById('panel-contract').innerHTML = highlight(CONTRACT);
+</script>
+</body>
+</html>

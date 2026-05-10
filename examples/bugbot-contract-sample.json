@@ -1,0 +1,12 @@
+{
+  "runner": "bugbot-contract-validator",
+  "contract": "bugbot.module.contract.v1",
+  "contractVersion": "1.0",
+  "status": "ACCEPTED",
+  "valid": true,
+  "errors": [],
+  "warnings": [],
+  "privacySafe": true,
+  "githubWriteSafe": true,
+  "genesisCoreSafe": true
+}

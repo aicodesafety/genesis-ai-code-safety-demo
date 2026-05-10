@@ -1,0 +1,50 @@
+{
+  "runner": "bugbot-outcome-demo",
+  "status": "ACCEPTED",
+  "decision": "ACCEPTED",
+  "prUrl": "https://github.com/example-org/example-repo/pull/42",
+  "archivePath": "examples/bugbot-learning-archive-sample.jsonl",
+  "outcome": {
+    "trusted": true,
+    "summary": "No contamination detected. All safety checks passed.",
+    "recommendedNextAction": "Safe to proceed with human review."
+  },
+  "proof": {
+    "status": "ACCEPTED",
+    "bugbotDecision": "APPROVED",
+    "changedFilesCount": 4,
+    "writesDetected": false
+  },
+  "learning": {
+    "archiveWritten": true,
+    "recordsWritten": 1,
+    "recordsRead": 5,
+    "validRecords": 5
+  },
+  "insight": {
+    "status": "ACCEPTED",
+    "dominantDecision": "APPROVED",
+    "dominantRisk": "INFO",
+    "topSurfaces": ["src", "docs"],
+    "activeSignals": [],
+    "weakSpots": [],
+    "candidateRules": [],
+    "recommendedNextAction": "Continue with standard review process."
+  },
+  "privacy": {
+    "rawCodeStored": false,
+    "rawDiffStored": false,
+    "secretsStored": false,
+    "fileContentsStored": false,
+    "storesOnlyMetadata": true
+  },
+  "githubReadOnly": true,
+  "noGitHubWritesPerformed": true,
+  "noMergePerformed": true,
+  "noPrCreated": true,
+  "limitations": [
+    "Local validation only.",
+    "No GENESIS integration performed.",
+    "Metadata only — no raw code, diff, or file contents stored."
+  ]
+}
