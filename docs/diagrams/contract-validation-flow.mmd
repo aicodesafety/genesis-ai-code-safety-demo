@@ -1,0 +1,28 @@
+flowchart TD
+    OUT["Bugbot Outcome JSON\n{ runner, status, decision, proof, learning, insight }"]
+
+    subgraph VALIDATOR["Contract Validator\nbugbot.module.contract.v1"]
+        V1["Shape check\nRequired fields present?"]
+        V2["Privacy check\nrawCodeStored: false?\nrawDiffStored: false?\nstoresOnlyMetadata: true?"]
+        V3["GitHub safety check\ngithubReadOnly: true?\nnoGitHubWritesPerformed: true?\nnoMergePerformed: true?"]
+        V4["Core safety check\ngenesisCoreSafe: true?"]
+        V5["Error accumulation\nerrors: []"]
+    end
+
+    ACC(["ACCEPTED\nvalid: true\nprivacySafe: true\ngithubWriteSafe: true\ngenesisCoreSafe: true\nerrors: 0"])
+    INC(["INCONCLUSIVE\nvalid: false\nerrors: [ ... ]\nHuman review required"])
+
+    OUT --> VALIDATOR
+    V1 --> V2 --> V3 --> V4 --> V5
+    V5 -->|"errors.length === 0"| ACC
+    V5 -->|"errors.length > 0"| INC
+
+    note["Contract validation is a shape and safety-flag check.\nIt is not a cryptographic signature.\nIt proves the output conforms to the declared schema\nand that all safety flags are correct."]
+
+    VALIDATOR --- note
+
+    style ACC fill:#14532d,color:#86efac,stroke:#22c55e
+    style INC fill:#7f1d1d,color:#fca5a5,stroke:#ef4444
+    style VALIDATOR fill:#1e293b,color:#cbd5e1,stroke:#6366f1,stroke-width:2px
+    style OUT fill:#0f172a,color:#e2e8f0,stroke:#475569
+    style note fill:#0f172a,color:#64748b,stroke:#1e293b

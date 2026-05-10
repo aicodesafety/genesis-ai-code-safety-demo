@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0f172a"/>
+
+  <!-- Top accent -->
+  <rect x="0" y="0" width="1200" height="4" fill="#6366f1"/>
+
+  <!-- Left accent -->
+  <rect x="60" y="60" width="4" height="510" fill="#6366f1" opacity="0.4"/>
+
+  <!-- PROVE BY GENESIS label -->
+  <text x="88" y="108" font-family="monospace" font-size="13" fill="#6366f1" letter-spacing="4" font-weight="bold">PROVE BY GENESIS</text>
+
+  <!-- Main headline -->
+  <text x="88" y="186" font-family="monospace" font-size="46" fill="#e2e8f0" font-weight="bold">Bugbot Proof Chain</text>
+
+  <!-- Subheadline -->
+  <text x="88" y="234" font-family="monospace" font-size="20" fill="#94a3b8">Verify AI-generated PRs with proof, not trust.</text>
+
+  <!-- Chain flow -->
+  <rect x="88" y="270" width="1060" height="64" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+
+  <!-- PR -->
+  <rect x="100" y="282" width="100" height="40" rx="6" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="150" y="308" font-family="monospace" font-size="13" fill="#93c5fd" text-anchor="middle" font-weight="bold">PR</text>
+
+  <text x="210" y="308" font-family="monospace" font-size="18" fill="#475569">→</text>
+
+  <!-- Proof -->
+  <rect x="228" y="282" width="110" height="40" rx="6" fill="#1e293b" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="283" y="308" font-family="monospace" font-size="13" fill="#a5b4fc" text-anchor="middle" font-weight="bold">Proof</text>
+
+  <text x="348" y="308" font-family="monospace" font-size="18" fill="#475569">→</text>
+
+  <!-- Learning -->
+  <rect x="368" y="282" width="130" height="40" rx="6" fill="#1e293b" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="433" y="308" font-family="monospace" font-size="13" fill="#a5b4fc" text-anchor="middle" font-weight="bold">Learning</text>
+
+  <text x="508" y="308" font-family="monospace" font-size="18" fill="#475569">→</text>
+
+  <!-- Insight -->
+  <rect x="528" y="282" width="120" height="40" rx="6" fill="#1e293b" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="588" y="308" font-family="monospace" font-size="13" fill="#a5b4fc" text-anchor="middle" font-weight="bold">Insight</text>
+
+  <text x="658" y="308" font-family="monospace" font-size="18" fill="#475569">→</text>
+
+  <!-- Outcome -->
+  <rect x="678" y="282" width="130" height="40" rx="6" fill="#1e293b" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="743" y="308" font-family="monospace" font-size="13" fill="#a5b4fc" text-anchor="middle" font-weight="bold">Outcome</text>
+
+  <text x="818" y="308" font-family="monospace" font-size="18" fill="#475569">→</text>
+
+  <!-- Contract -->
+  <rect x="838" y="282" width="130" height="40" rx="6" fill="#14532d" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="903" y="308" font-family="monospace" font-size="13" fill="#86efac" text-anchor="middle" font-weight="bold">Contract</text>
+
+  <!-- INCONCLUSIVE path -->
+  <text x="1000" y="308" font-family="monospace" font-size="18" fill="#475569">|</text>
+  <rect x="1020" y="282" width="112" height="40" rx="6" fill="#7f1d1d" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="1076" y="305" font-family="monospace" font-size="11" fill="#fca5a5" text-anchor="middle" font-weight="bold">INCONCLUSIVE</text>
+  <text x="1076" y="318" font-family="monospace" font-size="10" fill="#ef4444" text-anchor="middle">if any gap</text>
+
+  <!-- Properties grid -->
+  <rect x="88" y="356" width="490" height="200" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="108" y="386" font-family="monospace" font-size="12" fill="#6366f1" letter-spacing="2">PROPERTIES</text>
+
+  <text x="108" y="416" font-family="monospace" font-size="14" fill="#94a3b8">✓</text>
+  <text x="126" y="416" font-family="monospace" font-size="14" fill="#e2e8f0">GitHub read-only — no writes ever</text>
+
+  <text x="108" y="444" font-family="monospace" font-size="14" fill="#94a3b8">✓</text>
+  <text x="126" y="444" font-family="monospace" font-size="14" fill="#e2e8f0">Metadata only — no raw code stored</text>
+
+  <text x="108" y="472" font-family="monospace" font-size="14" fill="#94a3b8">✓</text>
+  <text x="126" y="472" font-family="monospace" font-size="14" fill="#e2e8f0">Machine-readable JSON at every step</text>
+
+  <text x="108" y="500" font-family="monospace" font-size="14" fill="#94a3b8">✓</text>
+  <text x="126" y="500" font-family="monospace" font-size="14" fill="#e2e8f0">Contract validated output</text>
+
+  <text x="108" y="528" font-family="monospace" font-size="14" fill="#94a3b8">✓</text>
+  <text x="126" y="528" font-family="monospace" font-size="14" fill="#6366f1">INCONCLUSIVE if evidence is missing</text>
+
+  <!-- Output sample -->
+  <rect x="598" y="356" width="550" height="200" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="618" y="386" font-family="monospace" font-size="12" fill="#6366f1" letter-spacing="2">CONTRACT OUTPUT</text>
+
+  <text x="618" y="416" font-family="monospace" font-size="13" fill="#64748b">{</text>
+  <text x="634" y="440" font-family="monospace" font-size="13" fill="#94a3b8">"status":</text>
+  <text x="730" y="440" font-family="monospace" font-size="13" fill="#86efac">"ACCEPTED",</text>
+  <text x="634" y="460" font-family="monospace" font-size="13" fill="#94a3b8">"valid":</text>
+  <text x="714" y="460" font-family="monospace" font-size="13" fill="#86efac">true,</text>
+  <text x="634" y="480" font-family="monospace" font-size="13" fill="#94a3b8">"privacySafe":</text>
+  <text x="776" y="480" font-family="monospace" font-size="13" fill="#86efac">true,</text>
+  <text x="634" y="500" font-family="monospace" font-size="13" fill="#94a3b8">"githubWriteSafe":</text>
+  <text x="820" y="500" font-family="monospace" font-size="13" fill="#86efac">true,</text>
+  <text x="634" y="520" font-family="monospace" font-size="13" fill="#94a3b8">"errors":</text>
+  <text x="728" y="520" font-family="monospace" font-size="13" fill="#86efac">[]</text>
+  <text x="618" y="540" font-family="monospace" font-size="13" fill="#64748b">}</text>
+
+  <!-- URL and tagline -->
+  <text x="88" y="590" font-family="monospace" font-size="16" fill="#6366f1">aicodesafety.com/bugbot-demo.html</text>
+  <text x="88" y="612" font-family="monospace" font-size="12" fill="#475569">Decision → Proof → Outcome · hello@aicodesafety.com</text>
+
+  <!-- Bottom accent -->
+  <rect x="0" y="626" width="1200" height="4" fill="#6366f1" opacity="0.4"/>
+</svg>
