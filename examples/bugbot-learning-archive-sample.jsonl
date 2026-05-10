@@ -1,0 +1,1 @@
+{"id":"sample-001","runner":"bugbot-outcome-demo","prUrl":"https://github.com/example-org/example-repo/pull/42","status":"ACCEPTED","decision":"APPROVED","dominantRisk":"INFO","changedFilesCount":4,"topSurfaces":["src","docs"],"archiveWritten":true,"recordsWritten":1,"storesOnlyMetadata":true,"timestamp":"2026-05-10T00:00:00.000Z"}
