@@ -1,0 +1,55 @@
+flowchart LR
+    PR["Pull Request\n(GitHub read-only)"]
+
+    subgraph PROOF["Step 1 — Proof"]
+        P1["Read PR metadata"]
+        P2["Check write surface\nbefore / after"]
+        P3["Validate JSON output\nNode + Python"]
+        P4["writesDetected: false\nstatus: ACCEPTED"]
+    end
+
+    subgraph LEARNING["Step 2 — Learning"]
+        L1["Build learning record\n(metadata only)"]
+        L2["Validate: no forbidden fields\nrawCode / rawDiff / fileContents"]
+        L3["Append to local\nJSONL archive"]
+        L4["rawCodeStored: false\nstoresOnlyMetadata: true"]
+    end
+
+    subgraph INSIGHT["Step 3 — Insight"]
+        I1["Read local archive"]
+        I2["Derive dominant patterns\ndecision / risk / surfaces"]
+        I3["Derive active signals\n& candidate rules"]
+        I4["recommendedNextAction"]
+    end
+
+    subgraph OUTCOME["Step 4 — Outcome"]
+        O1["Combine proof +\nlearning + insight"]
+        O2["trusted: true/false\ndecision: ACCEPTED/BLOCKED"]
+        O3["GitHub safety flags\nno writes / no merge"]
+    end
+
+    subgraph CONTRACT["Step 5 — Contract"]
+        C1["Validate output shape\nbugbot.module.contract.v1"]
+        C2["privacySafe: true\ngithubWriteSafe: true"]
+        C3["valid: true\nerrors: 0"]
+    end
+
+    INC(["INCONCLUSIVE\n(any step fails or\nevidence is missing)"])
+
+    PR --> PROOF
+    PROOF -->|"ok"| LEARNING
+    PROOF -->|"fail"| INC
+    LEARNING -->|"ok"| INSIGHT
+    LEARNING -->|"fail"| INC
+    INSIGHT -->|"ok"| OUTCOME
+    INSIGHT -->|"fail"| INC
+    OUTCOME -->|"ok"| CONTRACT
+    CONTRACT --> FINAL(["ACCEPTED\nor BLOCKED"])
+
+    style INC fill:#7f1d1d,color:#fca5a5,stroke:#ef4444
+    style FINAL fill:#14532d,color:#86efac,stroke:#22c55e
+    style PROOF fill:#1e3a5f,color:#bfdbfe,stroke:#3b82f6
+    style LEARNING fill:#1e3a5f,color:#bfdbfe,stroke:#3b82f6
+    style INSIGHT fill:#1e3a5f,color:#bfdbfe,stroke:#3b82f6
+    style OUTCOME fill:#1e3a5f,color:#bfdbfe,stroke:#3b82f6
+    style CONTRACT fill:#1e3a5f,color:#bfdbfe,stroke:#3b82f6

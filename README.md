@@ -2,13 +2,11 @@
   <img src="assets/README-hero.svg" alt="AI Code Safety Gate" width="900" />
 </p>
 
-# PROVE BY GENESIS — AI Code Safety Gate
+# AI Code Safety Gate — Powered by PROVE BY GENESIS
 
-**Pre-execution safety for AI-generated code.**
+**A proof-first gate for AI-generated code.**
 
-Every AI-generated change is classified before it runs.
-Decisions are explicit: `ALLOW`, `REQUIRE_APPROVAL`, or `BLOCK`.
-No silent failures. No unreviewed destructive changes.
+Stop trusting AI-generated code blindly. Verify the outcome.
 
 ---
 
@@ -16,17 +14,36 @@ No silent failures. No unreviewed destructive changes.
 
 **Try it now — no install required:**
 
-**[https://aicodesafety.com](https://aicodesafety.com)**
-
-Or clone and run locally in under two minutes.
+| Page | What it shows |
+|---|---|
+| [aicodesafety.com](https://aicodesafety.com/) | Decision gate: ALLOW / REQUIRE_APPROVAL / BLOCK |
+| [aicodesafety.com/bugbot-demo.html](https://aicodesafety.com/bugbot-demo.html) | Bugbot proof chain: PR → Proof → Learning → Insight → Outcome → Contract |
 
 ---
 
-## What It Does in 10 Seconds
+## The Problem
 
-AI coding tools can generate code that looks correct but silently destroys things.
+AI coding tools generate changes faster than teams can verify them.
 
-This gate sits **between AI output and execution**. It evaluates every change and returns one of three decisions before the code runs.
+A single line of AI-generated code can silently destroy a module's public interface, disable an entire code path, or introduce a structural regression that passes tests and only surfaces in production.
+
+The risk is not that AI is wrong. The risk is that AI is fast, confident, and structurally blind to downstream impact.
+
+Code Safety shows how AI-generated changes can be gated by deterministic proof — before they merge.
+
+---
+
+## What It Shows
+
+### 1. Decision Surface
+
+Every change gets an explicit classification before it runs:
+
+| Decision | Meaning |
+|---|---|
+| `ALLOW` | Pattern is safe — safe to proceed |
+| `REQUIRE_APPROVAL` | Risky pattern detected — human sign-off required |
+| `BLOCK` | Destructive change stopped |
 
 ```
 module.exports = null;   →  BLOCK
@@ -34,63 +51,101 @@ if (false) { ... }       →  REQUIRE_APPROVAL
 function formatDate(){}  →  ALLOW
 ```
 
-The goal is not to replace human review. The goal is to stop obvious destructive changes before they run.
+### 2. Bugbot Proof Chain
 
----
+Bugbot is the proof layer. It does not guess — it verifies and produces a chain of evidence:
 
-## How It Works
-
-<p align="center">
-  <img src="assets/demo-flow.svg" alt="Safety Gate Decision Flow" width="700" />
-</p>
-
----
-
-## The Problem
-
-AI coding tools move fast. Sometimes too fast.
-
-A single AI-generated line can silently destroy a module's public interface:
-
-```js
-module.exports = null;
+```
+PR → Proof → Learning → Insight → Outcome → Contract
 ```
 
-Your app won't crash immediately. It will just stop working.
-The AI that wrote it had no idea.
-
-Other patterns that slip through unnoticed:
-
-- Dead-code gates that disable entire code paths (`if (false)`)
-- Export rewrites that break downstream consumers
-- Logic replacements that look like refactors but change behavior
+Each step is deterministic, machine-readable, and privacy-safe. No raw source code is stored. No diff content is stored. Only metadata.
 
 ---
 
-## The Solution
+## Why This Is Different
 
-GENESIS evaluates every AI-generated change before execution.
+| Property | Standard AI code review | Code Safety / Bugbot |
+|---|---|---|
+| Basis | Model confidence | Deterministic proof |
+| Output | Natural language | Structured JSON + human report |
+| GitHub access | Often writes comments, status checks | Read-only only — no writes |
+| Data stored | May store code content | Metadata only |
+| False success posture | Can hallucinate safe | Explicit INCONCLUSIVE on missing evidence |
+| Learning | Session memory only | Local learning archive |
+| Insight | Qualitative | Signal counts, candidate rules |
+| Contract validation | None | Machine-readable contract check |
 
-| Decision | Meaning |
-|---|---|
-| `ALLOW` | Pattern is safe — proceed automatically |
-| `REQUIRE_APPROVAL` | Risky pattern detected — human sign-off required |
-| `BLOCK` | Destructive change stopped — not executed |
+**Proof-first means:** the system cannot claim ACCEPTED unless each proof step completes without error. Any gap produces INCONCLUSIVE — not a false pass.
 
 ---
 
-## Try It in the Browser
+## What It Is Not
 
-Open the live demo at **[https://aicodesafety.com](https://aicodesafety.com)** — no install, no account.
+- **Not a production security scanner yet.** This is a public concept demo and prototype.
+- **Not a GitHub App yet.** No automatic PR comments, no status check writes, no webhook.
+- **Not an auto-merge tool.** The gate informs human decision — it does not merge automatically.
+- **Not a replacement for human review.** It is a verification layer that runs before human review, not instead of it.
+- **Not live execution from the website.** The demo pages use sample data. Bugbot requires a local verifier environment to run against a real PR.
 
-The browser demo includes four scenarios you can run directly:
+---
 
-- Safe helper function → `ALLOW`
-- Dead-code gate `if(false)` → `REQUIRE_APPROVAL`
-- Export nullification `module.exports = null` → `BLOCK`
-- Custom input — paste your own code and see the decision
+## Quick Demo
 
-Or open `index.html` directly from this repo in any browser.
+### Main page — [aicodesafety.com](https://aicodesafety.com/)
+
+The decision gate. Four scenarios you can run in the browser:
+
+1. Safe helper function → `ALLOW`
+2. Dead-code gate `if(false)` → `REQUIRE_APPROVAL`
+3. Export nullification `module.exports = null` → `BLOCK`
+4. Custom input — paste your own code and see the decision
+
+### Bugbot demo page — [aicodesafety.com/bugbot-demo.html](https://aicodesafety.com/bugbot-demo.html)
+
+The proof chain. Walks through each step of a Bugbot run against a sample PR:
+
+- **Proof** — GitHub read-only verification, write surface check
+- **Learning** — metadata archive written, no raw code stored
+- **Insight** — dominant patterns, active signals, candidate rules
+- **Outcome** — trusted/blocked decision with supporting evidence
+- **Contract** — machine-readable contract validation result
+
+Each step shows the real JSON shape produced by the verifier.
+
+---
+
+## Repository Structure
+
+```
+index.html                               — Decision gate demo page
+bugbot-demo.html                         — Bugbot proof chain demo page
+examples/
+  demo-safe.json                         — Safe helper function scenario
+  demo-danger.json                       — Export destruction scenario
+  demo-dead-code.json                    — Dead-code gate scenario
+  bugbot-outcome-sample.json             — Sample Bugbot outcome JSON
+  bugbot-contract-sample.json            — Sample contract validation result
+  bugbot-learning-archive-sample.jsonl   — Sample learning archive (JSONL)
+  bugbot-proof-summary.md                — Sample human-readable proof report
+docs/
+  PRODUCT_OVERVIEW.md                    — Product name, positioning, problem, solution
+  BUGBOT_PROOF_CHAIN.md                  — Each proof step explained
+  DIFFERENTIATION.md                     — Why proof-first matters
+  DEMO_FLOW.md                           — How to evaluate the demo
+  LIMITATIONS.md                         — Honest scope and boundaries
+  SOCIAL_COPY.md                         — Ready-to-post social material
+  diagrams/
+    bugbot-proof-flow.mmd                — Mermaid: PR → proof chain → contract
+    code-safety-positioning.mmd          — Mermaid: positioning map
+    contract-validation-flow.mmd         — Mermaid: contract validation
+assets/
+  social-card-code-safety.svg            — Social card: decision gate
+  social-card-bugbot.svg                 — Social card: Bugbot proof chain
+scripts/
+  genesis-demo.js                        — CLI demo runner
+  test-demo.js                           — Test harness
+```
 
 ---
 
@@ -100,6 +155,7 @@ Or open `index.html` directly from this repo in any browser.
 git clone https://github.com/aicodesafety/genesis-ai-code-safety-demo.git
 cd genesis-ai-code-safety-demo
 npm install
+npm test
 ```
 
 Run the scenarios:
@@ -111,80 +167,25 @@ npm run demo:danger     # module.exports = null → BLOCK
 npm run demo:dead-code  # if(false) dead-code gate → REQUIRE_APPROVAL
 ```
 
-Or run directly:
+---
 
-```bash
-node scripts/genesis-demo.js examples/demo-safe.json
-node scripts/genesis-demo.js examples/demo-danger.json
-node scripts/genesis-demo.js examples/demo-dead-code.json
-```
+## Status
+
+**Prototype / public concept demo.**
+
+The decision engine and proof chain are functional. The Bugbot verifier runs locally against real GitHub PRs in a private development environment. This public repo demonstrates the output surface — the decision types, proof JSON, and contract format.
+
+Production packaging, GitHub App, and platform integrations are on the roadmap but not yet available.
 
 ---
 
-## Demo Scenarios
+## Contact
 
-| Scenario | Pattern | Decision |
-|---|---|---|
-| `demo-safe.json` | Safe helper function added | `ALLOW` |
-| `demo-danger.json` | `module.exports = null` — export destruction | `BLOCK` |
-| `demo-dead-code.json` | `if(false)` — dead-code gate | `REQUIRE_APPROVAL` |
+Questions, feedback, or integration interest: [hello@aicodesafety.com](mailto:hello@aicodesafety.com)
 
----
-
-## What This Demo Intentionally Excludes
-
-This is a public-safe demo shell. It demonstrates the decision surface — the output layer that developers and integrators interact with.
-
-This public demo does not include the private GENESIS core.
-
-What is excluded:
-
-- Real-time AI diff analysis pipeline
-- Private risk engine and pattern classifier
-- Execution control layer
-- Electron-based developer panel
-
-None of those are in this repository. GENESIS core is always private.
-
-The demo is intentionally minimal. It shows the concept, the decision types, and the output format — not the full product.
-
----
-
-## Who This Is For
-
-**Developers using AI coding assistants** (Cursor, Copilot, Claude Code, Codeium, etc.)
-You have seen the AI make a change that looked fine — then broke something downstream.
-GENESIS gives you a safety layer without slowing down your flow.
-
-**Engineering leads building AI-assisted teams**
-You want your team to move fast with AI — but not break production.
-GENESIS is a control layer that makes that possible.
-
-**AI tooling builders**
-You are building on top of LLMs and need deterministic safety gates before execution.
-GENESIS is designed to plug in between generation and execution.
-
----
-
-## Why This Matters
-
-AI coding tools are now part of production workflows. The assumption that AI output is always safe to run is the gap this addresses.
-
-The safety problem is not about AI being wrong. It is about AI being confident and fast while making structural changes that are difficult to detect without explicit classification.
-
-A pre-execution gate is not a review tool. It is a guardrail that runs in milliseconds and catches the class of changes that no developer wants silently deployed.
-
----
-
-## Repo Status
-
-Early public demo — actively seeking feedback from developers using AI coding tools.
-
-**Live demo:** [https://aicodesafety.com](https://aicodesafety.com)
+**Live demo:** [https://aicodesafety.com](https://aicodesafety.com/)
 
 **Public repo:** [https://github.com/aicodesafety/genesis-ai-code-safety-demo](https://github.com/aicodesafety/genesis-ai-code-safety-demo)
-
-Feedback and questions: [hello@aicodesafety.com](mailto:hello@aicodesafety.com)
 
 ---
 

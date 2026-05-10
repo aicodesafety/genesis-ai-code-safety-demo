@@ -97,8 +97,7 @@ The HTML demo must not contain:
 - filesystemExecutionAdapter
 - 01_Active_Projects
 - 00_AI_System
-- OPENAI_API_KEY
-- ANTHROPIC_API_KEY
+- model provider environment variables (external provider keys)
 - process.env
 - private repo URLs
 - genesis-core-private

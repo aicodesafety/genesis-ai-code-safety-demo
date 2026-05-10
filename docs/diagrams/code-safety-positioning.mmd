@@ -1,0 +1,42 @@
+flowchart TD
+    AI["AI-generated code change\n(Cursor / Copilot / AI assistant)"]
+
+    GATE["AI Code Safety Gate\nPROVE BY GENESIS"]
+
+    subgraph DECISION["Decision Surface"]
+        A["ALLOW\nPattern is safe\nProceed automatically"]
+        R["REQUIRE_APPROVAL\nRisky pattern detected\nHuman sign-off required"]
+        B["BLOCK\nDestructive change\nDo not merge"]
+    end
+
+    subgraph PROOF["Bugbot Proof Chain"]
+        direction LR
+        BP["Proof"] --> BL["Learning"] --> BI["Insight"] --> BO["Outcome"] --> BC["Contract"]
+    end
+
+    HUMAN["Human review\n(informed by gate + proof)"]
+
+    AI --> GATE
+    GATE --> DECISION
+    A --> HUMAN
+    R --> HUMAN
+    B -.->|"blocked before review"| HUMAN
+
+    GATE --> PROOF
+    PROOF --> HUMAN
+
+    note1["Read-only GitHub access\nNo writes. No PR comments.\nNo automatic merge."]
+    note2["Machine-readable JSON\nPrivacy-safe metadata only\nContract validated"]
+
+    PROOF --- note1
+    PROOF --- note2
+
+    style GATE fill:#0f172a,color:#e2e8f0,stroke:#6366f1,stroke-width:2px
+    style A fill:#14532d,color:#86efac,stroke:#22c55e
+    style R fill:#78350f,color:#fde68a,stroke:#f59e0b
+    style B fill:#7f1d1d,color:#fca5a5,stroke:#ef4444
+    style DECISION fill:#1e293b,color:#cbd5e1,stroke:#475569
+    style PROOF fill:#1e293b,color:#cbd5e1,stroke:#475569
+    style HUMAN fill:#1e3a5f,color:#bfdbfe,stroke:#3b82f6
+    style note1 fill:#0f172a,color:#64748b,stroke:#1e293b
+    style note2 fill:#0f172a,color:#64748b,stroke:#1e293b
